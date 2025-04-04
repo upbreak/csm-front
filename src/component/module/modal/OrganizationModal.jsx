@@ -119,8 +119,8 @@ const OrganizationModal = ({isOpen, fncExit, type, projectNo}) => {
                                         </tr>
                                         <tr>
                                             {
-                                                client?.organizations?.length ?
-                                                <th colSpan={9} className="sub-title">{client?.organizations[0]?.dept_name || ""}</th>
+                                                client?.length ?
+                                                <th colSpan={9} className="sub-title">{client[0]?.organizations[0]?.dept_name || ""}</th>
                                                 :
                                                 null
                                             }
@@ -128,35 +128,35 @@ const OrganizationModal = ({isOpen, fncExit, type, projectNo}) => {
                                     </thead>                                
                                     <tbody>
                                         {
-                                            client?.organizations?.length ? 
-                                            client?.organizations?.map((item, idx) => {
-                                                return  <tr key={idx}>
+                                            client.map((arr, arrIdx) => {
+                                                return arr.organizations.map((item, idx) => {
+                                                    return  <tr key={idx}>
                                                         { idx === 0 ? 
-                                                            <td style={{...wrapText , ...tdStyle}} rowSpan={client.organizations.length}> {client.func_name}</td>
+                                                            <td style={{...wrapText, ...tdStyle}} rowSpan={arr.organizations.length}> {arr.func_name}</td>
                                                             :
-                                                            <></>
+                                                            null
                                                         }
-                                                        {/* 담당 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.cd_nm}</td>
-                                                        {/* 담당상세 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="left">{item.charge_detail}</td>
-                                                        {/* 이름 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.user_name}</td>
-                                                        {/* 직위 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.duty_name}</td>
-                                                        {/* 소속 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.dept_name}</td>                                                            
-                                                        {/* 핸드폰 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.cell}</td>                                                            
-                                                        {/* 전화 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="center">{item.tel}</td>                                                            
-                                                        {/* 이메일 */}
-                                                        <td style={{...wrapText , ...tdStyle}} className="left">{item.email}</td>                                                            
+    
+                                                            {/* 담당 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.cd_nm}</td>
+                                                            {/* 담당상세 */}
+                                                            <td className="left" style={{...wrapText, ...tdStyle}}>{item.charge_detail}</td>
+                                                            {/* 이름 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.user_name}</td>
+                                                            {/* 직위 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.duty_name}</td>
+                                                            {/* 소속 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.dept_name}</td>                                                            
+                                                            {/* 핸드폰 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.cell}</td>                                                            
+                                                            {/* 전화 */}
+                                                            <td className="center" style={{...wrapText, ...tdStyle}}>{item.tel}</td>                                                            
+                                                            {/* 이메일 */}
+                                                            <td className="left" style={{...wrapText, ...tdStyle, wordBreak :"break-all"}}>{item.email}</td>  
                                                     </tr>
-                                                })   
-                                                :   
-                                                null
-                                                
+                                                    })
+                                                    
+                                                }) 
                                             }
                                     </tbody>
                                     <thead className="fixed" style={{top:'40px'}}>
@@ -206,7 +206,7 @@ const OrganizationModal = ({isOpen, fncExit, type, projectNo}) => {
                                                         {/* 전화 */}
                                                         <td className="center" style={{...wrapText, ...tdStyle, color : item.is_use === 'N' ?  "lightgray" : ""}}>{item.tel}</td>                                                            
                                                         {/* 이메일 */}
-                                                        <td className="left" style={{...wrapText, ...tdStyle, color : item.is_use === 'N' ?  "lightgray" : ""}}>{item.email}</td>  
+                                                        <td className="left" style={{...wrapText, ...tdStyle, wordBreak :"break-all", color : item.is_use === 'N' ?  "lightgray" : ""}}>{item.email}</td>  
                                                 </tr>
                                                 })
                                                 
@@ -276,7 +276,7 @@ const legend = {
 const wrapText = {
     whiteSpace : "normal",
     textOverflow : "unset",
-    textWrap : "wrap"
+    textWrap : "wrap",
 }
 
 const tdStyle = {

@@ -15,6 +15,8 @@ import whether4 from "../../../../../assets/image/whether/4.png";
 import whether5 from "../../../../../assets/image/whether/5.png";
 import whether6 from "../../../../../assets/image/whether/6.png";
 import whether7 from "../../../../../assets/image/whether/7.png";
+import whether13 from "../../../../../assets/image/whether/13.png";
+import whether14 from "../../../../../assets/image/whether/14.png";
 import Modal from "../../../../module/Modal";
 import Button from "../../../../module/Button";
 import { Common } from "../../../../../utils/Common";
@@ -192,60 +194,65 @@ const Site = () => {
         setIsOpenModal(true);
     }
 
-    // 날씨(강수형태)
-    const getPtyData = (whether) => {
+    // 날씨(강수형태) && 날씨(하늘상태)
+    const getPtyNSkyData = (whether) => {
+
+        let whetherIcon = whether0
+        let whetherText = "맑음" 
+
         const temp = whether?.filter(item => item.key === "PTY");
+        // 하늘 상태 추가
+        const cloudy = whether?.filter(item => item.key === "SKY");
         switch (temp[0]?.value) {
             case "0":
-                return (
-                    <>
-                        <img src={whether0} style={{ width: "19px" }} /> 맑음
-                    </>
-                );
+                switch (cloudy[0]?.value) {
+                    case "1":
+                        whetherIcon = whether0;
+                        whetherText = "맑음";
+                        break;
+                    case "3":
+                        whetherIcon = whether13;
+                        whetherText = "구름많음";
+                        break;
+                    case "4":
+                        whetherIcon = whether14;
+                        whetherText = "흐림";
+                }
+                break;
             case "1":
-                return (
-                    <>
-                        <img src={whether1} style={{ width: "19px" }} /> 비
-                    </>
-                );
+                whetherIcon = whether1;
+                whetherText = "비";
+                break;
             case "2":
-                return (
-                    <>
-                        <img src={whether2} style={{ width: "19px" }} /> 비/눈
-                    </>
-                );
+                whetherIcon = whether2;
+                whetherText = "비/눈";
+                break;
             case "3":
-                return (
-                    <>
-                        <img src={whether3} style={{ width: "19px" }} /> 눈
-                    </>
-                );
+                whetherIcon = whether3;
+                whetherText = "눈";
+                break;
             case "4":
-                return (
-                    <>
-                        <img src={whether4} style={{ width: "19px" }} /> 소나기
-                    </>
-                );
+                whetherIcon = whether4;
+                whetherText = "소나기";
+                break;
             case "5":
-                return (
-                    <>
-                        <img src={whether5} style={{ width: "19px" }} /> 빗방울
-                    </>
-                );
+                whetherIcon = whether5;
+                whetherText = "빗방울";
+                break;
             case "6":
-                return (
-                    <>
-                        <img src={whether6} style={{ width: "19px" }} /> 비/눈
-                    </>
-                );
+                whetherIcon = whether6;
+                whetherText = "비/눈";
+                break;
             case "7":
-                return (
-                    <>
-                        <img src={whether7} style={{ width: "19px" }} /> 눈
-                    </>
-                );
+                whetherIcon = whether7
+                whetherText = "눈";
+                break;
             default: return "";
         }
+
+        return <>
+            <img src={whetherIcon} style={{ width: "19px" }} /> {whetherText}
+        </>
     }
 
     // 날씨(강수량)
@@ -568,7 +575,7 @@ const Site = () => {
                                                     {
                                                         getIsWhether(item.whether) ?
                                                             <>
-                                                                <>{getPtyData(item.whether)}</>
+                                                                <>{getPtyNSkyData(item.whether)}</>
                                                                 /
                                                                 <>{getRn1Data(item.whether)}</>
                                                                 <br />
