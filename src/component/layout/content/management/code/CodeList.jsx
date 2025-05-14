@@ -12,13 +12,8 @@ const CodeList = ({ code, idx, level, pCode, expand, codeTrees, codeSet, dispatc
 
         setIsExpanded(true) // 상세보기 클릭하면 코드분류 확장
 
-        const treeData = {
-            codeSet,
-            codeTrees
-        }
-
-        dispatch({ type: "subCodeList", list: treeData })
         dispatch({ type: "path", path: path })
+        dispatch({ type: "pCode", pCode: code})
     };
 
     // 코드분류 +/- 아이콘 클릭 시 코드트리 활성화/비활성화
